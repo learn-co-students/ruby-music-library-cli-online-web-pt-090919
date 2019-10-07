@@ -46,4 +46,31 @@ attr_reader :artist, :genre
   def self.find_or_create_by_name(name)
     self.find_by_name(name) || self.create(name)
   end
+
+  def self.new_from_filename(filename)
+    song_name = filename.split(" - ").to_a[1]
+    artist_name = filename.split(" - ").to_a[0]
+    song_genre = filename.split(" - ").to_a[2].gsub(".mp3", "")
+    self.find_or_create_by_name(song_name)
+    binding.pry
+    song.artist = artist_name
+    # artist=(artist_name)
+    # genre=(song_genre)
+    # name=(song_name)
+
+  end
 end
+
+    # find_or_create_by_name(name)
+    # song.artist=(artist)
+    # song.genre=(genre)
+    #
+    # song
+
+
+
+
+# binding.pry
+    # song = self.new(song_name)
+    # song.artist=(artist)
+    # song
