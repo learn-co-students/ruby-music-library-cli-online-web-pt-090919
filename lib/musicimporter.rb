@@ -9,9 +9,6 @@ class MusicImporter
     Dir.entries(path).keep_if {|f| f.include?(".mp3")}
   end
 
-  # def import
-  #   files.each {|f| Song.create_from_filename(f)}
-  # end
   def import
     files.each {|f| Song.create_from_filename(f)}
   end
