@@ -21,13 +21,17 @@ class MusicLibraryController
 
     input = gets until input == "exit"
   end
-  
-  def list_songs
+
+  def song_organizer
     list = files.map{ |file| file.split(" - ") }
     list.sort!{ |a,b| a[1] <=> b[1] }
     list.each{ |file| 4.times{file[2].chop!} }
     alpha = list.map{ |file| file.join(" - ") }
-    alpha.each_with_index{ |file, index| puts "#{index+1}. #{file}" }
+    alpha.map.each_with_index{ |file, index| "#{index+1}. #{file}" }
+  end
+  
+  def list_songs
+    song_organizer.each{ |line| puts line }
   end
 
   def list_artists
@@ -49,23 +53,32 @@ class MusicLibraryController
   def list_songs_by_artist
     puts "Please enter the name of an artist:"
     artist = gets
-    puts ""
-    # puts "Please enter the name of an artist:"
-    # artobject = Artist.all.detect{|art|art.name == artist}
-    # binding.pry
-    # artgroup = artobject.songs.sort{ |a,b| a.name <=> b.name }
-    # artgroup.each_with_index{ |song, index|
-    #   puts "#{index}. #{song.name} = #{song.genre.name}"
-    # }
-
+    artobject = Artist.all.detect{|art|art.name == artist}
+    return unless artobject
+    
+    artgroup = artobject.songs.sort{ |a,b| a.name <=> b.name }
+    artgroup.each_with_index{ |song, index|
+      puts "#{index+1}. #{song.name} - #{song.genre.name}"
+    }
   end
   
-  def list_genre
-  
+  def list_songs_by_genre
+    puts "Please enter the name of a genre:"
+    genre = gets
+    genobject = Genre.all.detect{|gen|gen.name == genre}
+    return unless genobject
+    gengroup = genobject.songs.sort{ |a,b| a.name <=> b.name }
+    gengroup.each_with_index{ |song, index|
+      puts "#{index+1}. #{song.artist.name} - #{song.name}"
+    }
   end
 
   def play_song
-  
+    puts "Which song number would you like to play?"
+    sel_num = gets.to_i
+    return unless sel_num <= song_organizer.length && sel_num > 0
+    sel_song = song_organizer[sel_num-1][3..-1].split(" - ")
+    puts "Playing #{sel_song[1]} by #{sel_song[0]}"
   end
 
 end
