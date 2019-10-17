@@ -20,6 +20,11 @@ class MusicLibraryController
     puts "What would you like to do?"
 
     input = gets until input == "exit"
+    
+    list_songs if input == "list songs"
+    list_artists if input == "list artists"
+    list_genres if input == "list genres"
+    
   end
 
   def song_organizer
