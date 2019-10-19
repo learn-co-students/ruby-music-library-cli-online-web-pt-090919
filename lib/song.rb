@@ -50,5 +50,22 @@ class Song
     
     found_the_instance ? found_the_instance : nope_creating_one
   end
+  
+  def self.new_from_filename(file_name)
+    file_inst = file_name.gsub(/(\.mp3)/,'')
+    file_inst = file_inst.split(" - ")
+    artist = Artist.find_or_create_by_name(file_inst[0])
+    genre = Genre.find_or_create_by_name(file_inst[2])
+    song = Song.find_or_create_by_name(file_inst[1])
+    song.genre = genre
+    song.artist = artist
+    song
+  end 
+  
+  def self.create_from_filename(file_name)
+     file = Song.new_from_filename(file_name)
+     file.save
+     file
+  end 
 
 end
