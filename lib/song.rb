@@ -52,7 +52,7 @@ class Song
     #create song and assign artist and genre attribute, & create connections
     #prevent the creation of duplicate objects: songs, artists, genres
     
-    song = self.find_or_create_by_name(song_name)
+    song = self.new(song_name)
     song.artist = Artist.find_or_create_by_name(artist_name)
     song.genre = Genre.find_or_create_by_name(genre_name)
     song
