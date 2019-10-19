@@ -57,7 +57,7 @@ class Song
     song.genre = Genre.find_or_create_by_name(genre_name)
     song
   end
-  binding.pry
+
   def self.create_from_filename(name)
     @@all << self.new_from_filename(name)
   end
