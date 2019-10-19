@@ -39,5 +39,9 @@ class MusicLibraryController
   end 
   
   def list_songs
+    music_library = self.all.sort {|song_a, song_b|song_a <=> song_b = song.name}
+    music_library.each do |song|
+      puts "#{music_library.index(song) + 1}. #{song.artist.name} - #{song.name} - #{song.genre.name}"
   end 
+ end
 end
