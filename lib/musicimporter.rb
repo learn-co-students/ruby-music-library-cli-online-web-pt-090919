@@ -12,5 +12,7 @@ class MusicImporter
   end 
   
   def import 
+    fresh_file = self.files 
+    fresh_file.collect {|file| file = Song.create_from_filename(file)}
   end 
 end 
