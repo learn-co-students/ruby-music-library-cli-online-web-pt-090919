@@ -19,16 +19,16 @@ class MusicLibraryController
     puts "What would you like to do?"
     user_input = gets.chomp
     case user_input
-    when "get songs"
-      self.get_songs
-    when "get artists"
-      self.get_artists
-    when "get genres"
-      self.get_genres
-    when "get artist"
-      self.get_songs_by_artist
-    when "get genre"
-      self.get_songs_by_genre
+    when "list songs"
+      self.list_songs
+    when "list artists"
+      self.list_artists
+    when "list genres"
+      self.list_genres
+    when "list artist"
+      self.list_songs_by_artist
+    when "list genre"
+      self.list_songs_by_genre
     when "play song"
       self.play_song
     when "exit"
@@ -38,10 +38,16 @@ class MusicLibraryController
     end
   end 
   
+  def library(klass = Song)
+    sorted_library = klass.all.collect{|object|object if object.class == klass }
+    sorted_library = sorted_library.delete_if {|object|object==nil}
+    sorted_library.uniq
+  end
+
   def list_songs
-    music_library = self.all.sort {|song_a, song_b|song_a <=> song_b = song.name}
-    music_library.each do |song|
-      puts "#{music_library.index(song) + 1}. #{song.artist.name} - #{song.name} - #{song.genre.name}"
-  end 
- end
+    sorted_library = self.library.sort_by {|song|song.name}
+    sorted_library.each do |song|
+      puts "#{sorted_library.index(song) + 1}. #{song.artist.name} - #{song.name} - #{song.genre.name}"
+    end
+  end
 end
