@@ -38,16 +38,23 @@ class MusicLibraryController
     end
   end 
   
-  def library(klass = Song)
-    sorted_library = klass.all.collect{|object|object if object.class == klass }
-    sorted_library = sorted_library.delete_if {|object|object==nil}
-    sorted_library.uniq
+  def library(content = Song)
+    sorted_list = content.all.collect{|object|object if object.class == content }
+    sorted_list = sorted_list.delete_if {|object|object==nil}
+    sorted_list.uniq
   end
 
   def list_songs
-    sorted_library = self.library.sort_by {|song|song.name}
-    sorted_library.each do |song|
-      puts "#{sorted_library.index(song) + 1}. #{song.artist.name} - #{song.name} - #{song.genre.name}"
+    sorted_list = self.library.sort_by {|song|song.name}
+    sorted_list.each do |song|
+      puts "#{sorted_list.index(song) + 1}. #{song.artist.name} - #{song.name} - #{song.genre.name}"
+    end
+  end
+  
+  def list_artists
+    sorted_list = self.library.sort_by {|artist|artist.name}
+    sorted_list.collect.each do |artist|
+      puts "#{sorted_list.index(artist) + 1}. #{artist.name}"
     end
   end
 end
