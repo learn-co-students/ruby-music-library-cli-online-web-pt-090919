@@ -1,3 +1,4 @@
+require 'pry'
 class MusicLibraryController
 
   extend Concerns::Findable
@@ -40,24 +41,19 @@ class MusicLibraryController
   end
 
   def list_songs
-    Song.all.sort_by{|a,b| a.name <=> b.name}.each_with_index { 
-      puts "#{index+1} - #{song.artist.name} - #{song.name} - #{song.genre.name}"
-      
-    }
+    Song.all.sort{ |a, b| a.name <=> b.name }.each.with_index do |song, index|
+      puts "#{index}. #{song.artist.name} - #{song.name} - #{song.genre.name}"
+    end
   end
 
   def list_artists
-    songs_sorted_by_artist = Artist.all.sort_by{ |artist| artist.name}
-
-    songs_sorted_by_artist.each.with_index do |artist,index|
+    Artist.all.sort_by{ |artist| artist.name}.each.with_index do |artist,index|
       puts "#{index}. #{artist.name}"
     end
   end
 
   def list_genres
-    songs_sorted_by_genre = Genre.all.sort_by { |genre| genre.name}
-
-    songs_sorted_by_genre.each.with_index do |genre,index|
+    Genre.all.sort_by { |genre| genre.name}.each.with_index do |genre,index|
       puts "#{index}. #{genre.name}"
     end
   end
@@ -67,9 +63,7 @@ class MusicLibraryController
     puts "Please enter the name of an artist:"
     input = gets.chomp
     if artist = Artist.find_by_name(input) 
-      songs_sorted_by_name = artist.songs.sort_by { |song| song.name}
-
-      songs_sorted_by_name.each.with_index do |song,index|
+      artist.songs.sort_by { |song| song.name}.each.with_index do |song,index|
         puts "#{index}. #{song.name} - #{song.genre.name}"
       end
     end
@@ -80,12 +74,7 @@ class MusicLibraryController
     puts "Please enter the name of a genre:"
     input = gets.chomp
     if genre = Genre.find_by_name(input)
-
-      songs_sorted_by_name = genre.songs.sort_by do |song|
-        song.name
-      end
-
-      songs_sorted_by_name.each.with_index do |song,index|
+      genre.songs.sort_by { |song| song.name}.each.with_index do |song,index|
         puts "#{index}. #{song.artist.name} - #{song.name}"
       end
     end
