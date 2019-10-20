@@ -52,9 +52,31 @@ class MusicLibraryController
   end
   
   def list_artists
-    sorted_list = self.library.sort_by {|artist|artist.name}
-    sorted_list.collect.each do |artist|
-      puts "#{sorted_list.index(artist) + 1}. #{artist.name}"
+    Artist.all.collect{|artist| artist.name}.sort.each_with_index do |artist, index|
+      puts "#{index + 1}. #{artist}"
     end
   end
+  
+  def list_genres
+    Genre.all.collect{|genre| genre.name}.sort.each_with_index do |genre, index|
+      puts "#{index + 1}. #{genre}"
+    end
+    
+    def list_songs_by_artist
+    puts "Please enter the name of an artist:"
+    chosen_artist = gets
+	
+    artist_songs = []
+	
+    Artist.all.collect{|artist|artist.songs.each{|song| artist_songs << (song.name + ' - ' + song.genre.name)} if artist.name == chosen_artist}
+	artist_songs.sort.each_with_index do |song, index|
+    	puts "#{index + 1}. #{song}"
+	 end 
+	
+   end
+  end
+  
+  def list_songs_by_genre
+    puts "Please enter the name of a genre:"
+  end 
 end
