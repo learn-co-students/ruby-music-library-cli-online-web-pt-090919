@@ -88,5 +88,11 @@ class MusicLibraryController
     end.each_with_index do |song, index|
       puts "#{index + 1}. #{song}"
     end
-end
+  end
+  
+  def play_song
+    puts "Which song number would you like to play?"
+    song_names = self.song_array
+    user_input = gets.chomp.to_i
+  end 
 end
