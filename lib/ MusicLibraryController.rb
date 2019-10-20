@@ -71,12 +71,22 @@ class MusicLibraryController
     Artist.all.collect{|artist|artist.songs.each{|song| artist_songs << (song.name + ' - ' + song.genre.name)} if artist.name == chosen_artist}
 	artist_songs.sort.each_with_index do |song, index|
     	puts "#{index + 1}. #{song}"
-	 end 
-	
+	  end 
    end
   end
   
   def list_songs_by_genre
     puts "Please enter the name of a genre:"
-  end 
+    chosen_genre = gets
+    
+    genre_songs = []
+    
+    Genre.all.collect{|genre| genre.songs.each{|song| genre_songs << (song.artist.name + ' - ' + song.name)} if genre.name == chosen_genre}
+    
+    genre_songs.sort_by do |song|
+      song.split(' - ')[1][0]
+    end.each_with_index do |song, index|
+      puts "#{index + 1}. #{song}"
+    end
+end
 end
