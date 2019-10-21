@@ -56,7 +56,4 @@ class Artist
     # return self.songs.map { |song| song.genre }.uniq
   end
   
-  
-
-  
 end

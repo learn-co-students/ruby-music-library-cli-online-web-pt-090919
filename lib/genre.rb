@@ -39,4 +39,5 @@ class Genre
     return self.songs.map(&:artist).uniq
     # return self.songs.map { |song| song.artist }.uniq
   end
+  
 end

@@ -111,20 +111,18 @@ class MusicLibraryController
   end
   
   def play_song
-  # prompts user to choose a song from the alphabetized list output by #list_songs
+    # prompts user to choose a song from the alphabetized list output by #list_songs
     puts "Which song number would you like to play?"
     song_num = gets.strip.to_i
-    # Upon receiving valid input 'plays' the matching song 
-    # from the alphabetized list output by #list_songs
+    
+    # 'plays' the matching song from the alphabetized list output by #list_songs
     # e.g. "Playing Larry Csonka by Action Bronson")
-    
-    
     # doesn't 'puts' anything out if a matching song is not found
     # checks that user entered a num between 1 - total num of songs in the lib
     if (1..Song.all.length).include?(song_num)
       chosen_song = self.sorted_list_songs[song_num - 1] #song number input converted to index
       puts "Playing #{chosen_song.name} by #{chosen_song.artist.name}"
     end
-  
   end
+  
 end
