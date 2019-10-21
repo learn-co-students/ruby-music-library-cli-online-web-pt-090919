@@ -1,4 +1,3 @@
-require 'pry'
 class Artist
   # Extends the Concerns::Findable module
   extend Concerns::Findable 

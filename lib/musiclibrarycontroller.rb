@@ -1,4 +1,3 @@
-require 'pry'
 class MusicLibraryController
   
   def initialize(filepath = "./db/mp3s") #'path' arg to './db/mp3s'
