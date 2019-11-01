@@ -13,9 +13,9 @@ class MusicImporter
   
   def import
     list = self.files
-      list.collect do |file|
-        file = Song.create_from_filename(file)
-      end
+    list.collect do |file|
+      file = Song.create_from_filename(file)
+    end
   end
   
 end
