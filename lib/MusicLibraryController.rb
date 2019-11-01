@@ -17,7 +17,7 @@ class MusicLibraryController
     puts "To play a song, enter 'play song'."
     puts "To quit, type 'exit'."
     puts "What would you like to do?"
-    input = gets.chomp
+    input = ""
     until input == "exit"
       input = gets.chomp
       case input
@@ -94,6 +94,15 @@ class MusicLibraryController
   
   def play_song
     puts "Which song number would you like to play?"
+    number = gets.chomp.to_i
+    list = Song.all.sort {|a, b| a.name <=> b.name}
+    i = 1
+    list.each do |song|
+      if i == number
+        puts "Playing #{song.name} by #{song.artist.name}"
+      end
+      i += 1
+    end
   end
   
 end
